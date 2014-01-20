@@ -1,0 +1,14 @@
+#!/bin/bash
+XENSTOREREAD=`which xenstore-read`
+
+[ -x $XENSTOREREAD ] || exit 0
+
+SSHKEY=`$XENSTOREREAD vm-data/sshkey`
+
+[ "$SSHKEY" = "" ] && exit 0
+
+
+echo $SSHKEY >> /root/.ssh/authorized_keys2
+
+exit 0
+

@@ -1,0 +1,34 @@
+#!/bin/bash
+XENSTOREREAD=`which xenstore-read`
+
+[ -x $XENSTOREREAD ] || exit 0
+
+
+# Due to xenstore-data limitations the entire cert was base64 encoded for storage
+
+PUB=`$XENSTOREREAD vm-data/puppet/pub |base64 -d`
+PRV=`$XENSTOREREAD vm-data/puppet/prv |base64 -d`
+
+[ "$PUB" = "" ] && exit 0
+[ "$PRV" = "" ] && exit 0
+
+
+# If you do not have puppet.yourdomain.tld record you could use this
+#echo "123.123.23.3 puppet.yourdomain.net" >> /etc/hosts
+
+mkdir -p /var/lib/puppet/ssl/certs /var/lib/puppet/ssl/private_keys
+
+cat << EOF > /var/lib/puppet/ssl/certs/$(hostname -f).pem
+$PUB
+EOF
+
+cat << EOF > /var/lib/puppet/ssl/private_keys/$(hostname -f).pem
+$PRV
+EOF
+
+chown puppet.puppet /var/lib/puppet/ssl/private_keys/$(hostname -f).pem
+chown puppet.puppet /var/lib/puppet/ssl/certs/$(hostname -f).pem
+
+
+exit 0
+
