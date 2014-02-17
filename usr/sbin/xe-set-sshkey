@@ -1,6 +1,14 @@
 #!/bin/bash
 XENSTOREREAD=`which xenstore-read`
 
+XEDIR="/root/.xe-automator/"
+XERUNONCEFILE="/root/.xe-automator/set-sshkey"
+
+if [ -e $XERUNONCEFILE ]; then
+  exit 1
+fi
+
+
 [ -x $XENSTOREREAD ] || exit 0
 
 SSHKEY=`$XENSTOREREAD vm-data/sshkey`
@@ -12,6 +20,8 @@ chmod 700 /root/.ssh
 
 echo $SSHKEY >> /root/.ssh/authorized_keys2
 chmod 600 /root/.ssh/*
+
+touch $XERUNONCEFILE
 
 exit 0
 
