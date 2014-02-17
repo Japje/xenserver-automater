@@ -2,7 +2,7 @@
 XENSTOREREAD=`which xenstore-read`
 
 XEDIR="/root/.xe-automator/"
-XERUNONCEFILE="/root/.xe-automator/set-network"
+XERUNONCEFILE="/root/.xe-automator/set-hostname"
 
 if [ -e $XERUNONCEFILE ]; then
   exit 1
