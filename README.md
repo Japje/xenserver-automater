@@ -5,6 +5,7 @@
     xe vm-param-set uuid=$UUID xenstore-data:vm-data/nm=255.255.255.0
     xe vm-param-set uuid=$UUID xenstore-data:vm-data/ns=192.168.1.254
     xe vm-param-set uuid=$UUID xenstore-data:vm-data/dm=mydomain.com
+    xe vm-param-set uuid=$UUID xenstore-data:vm-data/password=mypassw0rd
     xe vm-start uuid=$UUID
 
 ## Install scripts on guest VM:
@@ -14,5 +15,9 @@ Copy usr/sbin/xe-set-* into /usr/sbin/ and chmod +x
 ## Install Upstart script on guest VM:
 
 Copy etc/init/xe-automate.conf into /etc/init/
+
+## Created xe-automator directory
+
+mkdir /root/.xe-automator
 
 ## Reboot
