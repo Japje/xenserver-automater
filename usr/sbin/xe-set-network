@@ -1,6 +1,14 @@
 #!/bin/bash
 XENSTOREREAD=`which xenstore-read`
 
+XEDIR="/root/.xe-automator/"
+XERUNONCEFILE="/root/.xe-automator/set-network"
+
+if [ -e $XERUNONCEFILE ]; then
+  exit 1
+fi
+
+
 [ -x $XENSTOREREAD ] || exit 0
 
 IP=`$XENSTOREREAD vm-data/ip`
@@ -45,6 +53,8 @@ NM6=`$XENSTOREREAD vm-data/nm6`
 echo -e "\niface eth0 inet6 static\n\taddress $IP6\n\tnetmask $NM6\n\tgateway $GW6" >>/etc/network/interfaces
 
 /etc/init.d/networking restart
+
+touch $XERUNONCEFILE
 
 exit 0
 

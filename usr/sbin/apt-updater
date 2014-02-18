@@ -1,5 +1,15 @@
 #!/bin/bash
 
+XEDIR="/root/.xe-automator/"
+XERUNONCEFILE="/root/.xe-automator/apt-get-upgrade"
+
+if [ -e $XERUNONCEFILE ]; then
+  exit 1
+fi
+
 apt-get update && apt-get -y dist-upgrade
+
+
+touch $XERUNONCEFILE
 exit 0
 

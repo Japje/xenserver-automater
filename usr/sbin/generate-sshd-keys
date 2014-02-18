@@ -1,3 +1,13 @@
 #!/bin/bash
+XEDIR="/root/.xe-automator/"
+XERUNONCEFILE="/root/.xe-automator/sshd-reconfigure"
+
+if [ -e $XERUNONCEFILE ]; then
+  exit 1
+fi
 
 [ ! -f /etc/ssh/ssh_host_rsa_key ] && dpkg-reconfigure openssh-server
+
+touch $XERUNONCEFILE
+
+exit 0

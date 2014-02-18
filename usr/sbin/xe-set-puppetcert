@@ -1,6 +1,14 @@
 #!/bin/bash
 XENSTOREREAD=`which xenstore-read`
 
+XEDIR="/root/.xe-automator/"
+XERUNONCEFILE="/root/.xe-automator/set-puppetcert"
+
+if [ -e $XERUNONCEFILE ]; then
+  exit 1
+fi
+
+
 [ -x $XENSTOREREAD ] || exit 0
 
 
@@ -29,6 +37,7 @@ EOF
 chown puppet.puppet /var/lib/puppet/ssl/private_keys/$(hostname -f).pem
 chown puppet.puppet /var/lib/puppet/ssl/certs/$(hostname -f).pem
 
+touch $XERUNONCEFILE
 
 exit 0
 
