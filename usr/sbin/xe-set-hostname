@@ -9,8 +9,8 @@ if [ -e $XERUNONCEFILE ]; then
 fi
 
 if [ -e $XENSTOREREAD ]; then
-  NAME=`$XENSTOREREAD name`
-  DOMAIN=`$XENSTOREREAD vm-data/dm`
+  NAME=`$XENSTOREREAD vm-data/hostname`
+  DOMAIN=`$XENSTOREREAD vm-data/domain`
 
   [ "$NAME" = "" ] && exit 0
   echo "$NAME" > /etc/hostname
