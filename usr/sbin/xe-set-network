@@ -15,7 +15,7 @@ IP=`$XENSTOREREAD vm-data/ip`
 GW=`$XENSTOREREAD vm-data/gw`
 NM=`$XENSTOREREAD vm-data/nm`
 NS=`$XENSTOREREAD vm-data/ns`
-DM=`$XENSTOREREAD vm-data/dm`
+DM=`$XENSTOREREAD vm-data/domain`
 
 [ "$IP" = "" ] && exit 0
 [ "$GW" = "" ] && exit 0
