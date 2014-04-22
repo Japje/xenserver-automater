@@ -45,16 +45,15 @@ IP6=`$XENSTOREREAD vm-data/ip6`
 GW6=`$XENSTOREREAD vm-data/gw6`
 NM6=`$XENSTOREREAD vm-data/nm6`
 
-
-[ "$IP6" = "" ] && /etc/init.d/networking restart && exit 0
-[ "$GW6" = "" ] && exit 0
-[ "$NM6" = "" ] && exit 0
-
-echo -e "\niface eth0 inet6 static\n\taddress $IP6\n\tnetmask $NM6\n\tgateway $GW6" >>/etc/network/interfaces
-
-/etc/init.d/networking restart
-
-touch $XERUNONCEFILE
+if [ ! "$IP6" = "" ]; then
+	[ "$GW6" = "" ] && exit 0
+	[ "$NM6" = "" ] && exit 0
+	echo -e "\niface eth0 inet6 static\n\taddress $IP6\n\tnetmask $NM6\n\tgateway $GW6" >>/etc/network/interfaces
+	ifdown eth0 && ifup eth0
+else
+	ifdown eth0 && ifup eth0
+	touch $XERUNONCEFILE
+fi
 
 exit 0
 
